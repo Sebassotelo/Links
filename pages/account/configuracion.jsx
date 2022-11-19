@@ -24,7 +24,7 @@ import {
 } from "firebase/storage";
 import Loader from "../../componentes/Loader";
 
-function diseño() {
+function Configuracion() {
   const context = useContext(LinksContext);
   const { setUser, setUsuario } = useContext(LinksContext);
   const firestore = getFirestore();
@@ -127,4 +127,4 @@ function diseño() {
   );
 }
 
-export default diseño;
+export default Configuracion;
