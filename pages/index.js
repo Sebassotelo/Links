@@ -37,7 +37,10 @@ export default function Home() {
 
   useEffect(() => {
     onAuthStateChanged(context.auth, inspectorSesion);
-  }, []);
+    if (context.user) {
+      buscarUsuario();
+    }
+  }, [context.user]);
 
   const inspectorSesion = (usuarioFirebase) => {
     //en caso de que haya seison iniciada
@@ -46,6 +49,16 @@ export default function Home() {
     } else {
       //en caso de que haya seison iniciada
       setUser(null);
+    }
+  };
+
+  const buscarUsuario = async () => {
+    const docRef = doc(firestore, `users/${context.user.email}`);
+    const consulta = await getDoc(docRef);
+    if (consulta.exists()) {
+      const infoDocu = consulta.data();
+      setUsuario(infoDocu);
+      return infoDocu;
     }
   };
 

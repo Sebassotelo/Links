@@ -25,6 +25,13 @@ function Navbar() {
           <Link href={"/"}>
             <p className={style.link}>Home</p>
           </Link>
+
+          <Link href={"/account"}>
+            <p className={style.link}>Cuenta</p>
+          </Link>
+          <Link href={"/account/configuracion"}>
+            <p className={style.link}>Configuracion</p>
+          </Link>
           {context.usuario && (
             <Link
               href={
@@ -34,12 +41,6 @@ function Navbar() {
               <p className={style.link}>Mis Links</p>
             </Link>
           )}
-          <Link href={"/account"}>
-            <p className={style.link}>Cuenta</p>
-          </Link>
-          <Link href={"/account/configuracion"}>
-            <p className={style.link}>Configuracion</p>
-          </Link>
         </div>
         <div className={style.google}>
           {context.user ? (
