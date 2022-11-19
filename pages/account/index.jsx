@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, DragEvent } from "react";
 import Layout from "../../componentes/Layout";
 import { useRouter } from "next/router";
 import style from "../../styles/Links.module.css";
@@ -74,6 +74,7 @@ function Index() {
         fotoPerfil: "",
         styles: {},
         username: "",
+        img: "",
       });
       const consulta = await getDoc(docRef);
       const infoDocu = consulta.data();
@@ -85,6 +86,7 @@ function Index() {
 
   const agregarLinks = async (e) => {
     e.preventDefault();
+
     const docRef = doc(firestore, `users/${context.user.email}`);
     const consulta = await getDoc(docRef);
     const infoDocu = consulta.data();
@@ -95,6 +97,9 @@ function Index() {
     ];
     setLinks(newLink);
     updateDoc(docRef, { links: newLink });
+
+    setTitle("");
+    setUrl("");
   };
 
   const eliminarLink = async (e) => {
@@ -122,6 +127,7 @@ function Index() {
                     <input
                       type="text"
                       placeholder="Titulo"
+                      value={title}
                       onChange={(e) => setTitle(e.target.value)}
                       id="title"
                     />
@@ -131,6 +137,7 @@ function Index() {
                     <input
                       type="text"
                       placeholder="Link"
+                      value={url}
                       onChange={(e) => setUrl(e.target.value)}
                       id="url"
                     />
@@ -150,7 +157,7 @@ function Index() {
               <div className={style.container__links__publicos}>
                 {context.usuario.links &&
                   links.map((item, i) => (
-                    <div className={style.item__link} key={i}>
+                    <div className={style.item__link} key={i} draggable>
                       {" "}
                       <a
                         href={item.url}

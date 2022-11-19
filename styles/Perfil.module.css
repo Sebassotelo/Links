@@ -1,5 +1,8 @@
 .container {
   align-self: center;
+  display: grid;
+  align-items: center;
+  justify-items: center;
 }
 .img {
   height: 100px;

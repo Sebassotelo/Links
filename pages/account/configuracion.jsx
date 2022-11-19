@@ -28,21 +28,13 @@ function Configuracion() {
   const context = useContext(LinksContext);
   const { setUser, setUsuario } = useContext(LinksContext);
   const firestore = getFirestore();
+  const storage = getStorage();
 
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [loader, setLoader] = useState(false);
-
-  const guardarPerfil = () => {
-    const docRef = doc(firestore, `users/${context.user.email}`);
-
-    const newPerfil = {
-      title: `${title}`,
-      desc: desc,
-    };
-
-    updateDoc(docRef, { perfil: newPerfil, username: title });
-  };
+  const [carga, setCarga] = useState(true);
+  const [url, setUrl] = useState("");
 
   useEffect(() => {
     onAuthStateChanged(context.auth, inspectorSesion);
@@ -61,6 +53,30 @@ function Configuracion() {
     }
   };
 
+  const guardarPerfil = () => {
+    const docRef = doc(firestore, `users/${context.user.email}`);
+
+    const newPerfil = {
+      title: `${title}`,
+      desc: desc,
+    };
+
+    updateDoc(docRef, { perfil: newPerfil, username: title, img: url });
+  };
+
+  const fileHandler = async (e) => {
+    setCarga(null);
+    //detectar el archivo
+    const archivoLocal = e.target.files[0];
+    //cargarlo a firebase storage
+    const archivoRef = ref(storage, `documentos/${archivoLocal.name}`);
+    await uploadBytes(archivoRef, archivoLocal);
+    //obtener URL
+    const urlImg = await getDownloadURL(archivoRef);
+    setUrl(urlImg);
+    setCarga(true);
+  };
+
   const buscarUsuario = async () => {
     const docRef = doc(firestore, `users/${context.user.email}`);
     const consulta = await getDoc(docRef);
@@ -68,10 +84,21 @@ function Configuracion() {
       const infoDocu = consulta.data();
       setTitle(infoDocu.perfil.title);
       setDesc(infoDocu.perfil.desc);
+      setUrl(infoDocu.img);
       setUsuario(infoDocu);
       setLoader(true);
       return infoDocu;
     }
+  };
+
+  const eliminarImg = () => {
+    const docRef = doc(firestore, `users/${context.user.email}`);
+    updateDoc(docRef, { img: "" });
+  };
+
+  const imgFondo = {
+    backgroundImage: `url(${context.infoPublica.img})`,
+    backgroundSize: "cover",
   };
 
   return (
@@ -83,10 +110,12 @@ function Configuracion() {
             {" "}
             <div className={style.img__container}>
               {" "}
-              <div className={style.img}></div>
+              <div className={style.img} style={imgFondo}></div>
               <div className={style.img__loader}>
-                <button className={style.button}>Subir Imagen</button>
-                <button className={style.button}>Eliminar Imagen</button>
+                <input type="file" onChange={fileHandler} />
+                <button className={style.button} onClick={eliminarImg}>
+                  Eliminar Imagen
+                </button>
               </div>
             </div>
             <div className={style.title__container}>
@@ -113,12 +142,14 @@ function Configuracion() {
                 />
                 {console.log(desc, title)}
               </div>
-              <button onClick={guardarPerfil} className={style.button}>
-                Guardar
-              </button>
+
+              {carga && (
+                <button onClick={guardarPerfil} className={style.button}>
+                  Guardar
+                </button>
+              )}
             </div>
           </div>
-          <h3>Temas</h3>
         </div>
       ) : (
         <Loader />
