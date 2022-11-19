@@ -1,0 +1,13 @@
+.container {
+  align-self: center;
+}
+.img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  background-color: black;
+}
+
+.p {
+  text-align: center;
+}

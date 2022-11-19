@@ -1,0 +1,66 @@
+.fondo {
+  height: 100vh;
+  display: grid;
+  justify-items: center;
+
+  background-color: hsla(0, 0%, 100%, 1);
+  background-image: radial-gradient(
+      at 52% 78%,
+      hsla(307, 100%, 79%, 1) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 80% 32%, hsla(181, 100%, 76%, 1) 0px, transparent 50%),
+    radial-gradient(at 1% 19%, hsla(134, 65%, 76%, 1) 0px, transparent 50%);
+}
+.container {
+  margin-top: 100px;
+  display: grid;
+  justify-items: center;
+  grid-template-rows: 250px 1fr;
+}
+.links__container {
+  width: 500px;
+  justify-self: center;
+}
+.item__link {
+  margin-top: 10px;
+  height: 40px;
+  max-width: 500px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  border-radius: 15px;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  color: rgb(0, 0, 0);
+  position: relative;
+  font-weight: 900;
+}
+.item__link:hover {
+  background-color: rgb(240, 240, 240);
+}
+
+.item__a {
+  height: 100%;
+  width: 50%;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.item__link p {
+  margin: 0;
+}
+.volver__home {
+  background-color: white;
+  padding: 5px 10px 5px 10px;
+  border: none;
+  border-radius: 15px;
+}
+
+@media (max-width: 900px) {
+  .links__container {
+    width: 330px;
+    justify-self: center;
+  }
+}

@@ -1,0 +1,131 @@
+.container {
+  width: 100%;
+  display: grid;
+  justify-self: center;
+}
+.nav {
+  height: 80px;
+  width: 80%;
+  background-color: rgb(17, 17, 17);
+  position: fixed;
+  justify-self: center;
+  top: 15px;
+  display: grid;
+  justify-items: center;
+  border-radius: 80px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.nav__container {
+  grid-column: 2/3;
+  width: 400px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
+.nav__container a {
+  padding: 8px 10px 8px 10px;
+  display: grid;
+  align-items: center;
+  border-radius: 8px;
+  transition-duration: 0.3s;
+}
+.nav__container a:hover {
+  background-color: rgb(29, 29, 29);
+}
+
+.link {
+  margin: 0;
+  color: white;
+  font-size: 16px;
+}
+
+.cerrar__sesion {
+  color: white;
+  cursor: pointer;
+  margin: 0;
+}
+.cerrar__sesion:hover {
+  color: rgb(0, 171, 201);
+}
+
+.google {
+  display: grid;
+  align-items: center;
+}
+.nav__mobile {
+  display: none;
+}
+.mostrar__nav {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .nav {
+    display: none;
+  }
+  .nav__mobile {
+    width: 100%;
+    background-color: rgb(17, 17, 17);
+    position: fixed;
+    justify-self: center;
+    top: 0px;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr;
+    grid-gap: 15px;
+    padding: 15px;
+    z-index: 100;
+    transition-duration: 0.8s;
+  }
+  .nav__container__mobile {
+    width: 400px;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+  }
+  .nav__container__mobile a {
+    width: 100%;
+    height: 80px;
+    padding: 8px 10px 8px 10px;
+    display: grid;
+    align-items: center;
+    transition-duration: 0.3s;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.37);
+  }
+  .link__mobile {
+    margin: 0;
+    color: white;
+    font-size: 18px;
+  }
+
+  .cerrar__sesion__mobile {
+    color: white;
+    cursor: pointer;
+    margin: 0;
+    height: 60px;
+    display: grid;
+    align-items: center;
+    font-size: 18px;
+  }
+
+  .mostrar__nav {
+    height: 60px;
+    width: 100%;
+    background-color: black;
+    position: fixed;
+    top: 0;
+    display: grid;
+    align-items: center;
+    justify-items: end;
+  }
+  .mostrar__nav__icon {
+    color: white;
+    font-size: 40px;
+    margin-right: 15px;
+  }
+}
