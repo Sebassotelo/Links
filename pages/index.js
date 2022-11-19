@@ -82,6 +82,7 @@ export default function Home() {
             <a
               href="https://links-59dx.vercel.app/u/_Sebassotelo"
               target={"_blank"}
+              rel="noreferrer"
             >
               <p>Links de Sebas</p>
             </a>
