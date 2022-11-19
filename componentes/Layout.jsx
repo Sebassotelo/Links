@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 import LinksContext from "../context/Context";
 import Head from "next/head";
 import Navbar from "./Navbar";
-
+import style from "../styles/Layout.module.css";
 function Layout({ children, title }) {
   const context = useContext(LinksContext);
 
   return (
-    <div>
+    <div style={{ display: "grid" }}>
       <Head>
-        <title>App de Links {title && `| ${title} `}</title>
+        <title>Links {title && `| ${title} `}</title>
         <meta name="descripcion" content="Generador de Links" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,6 +27,14 @@ function Layout({ children, title }) {
       {context.user && <Navbar />}
 
       <div>{children}</div>
+      <div className={style.footer}>
+        <p>
+          Hecho por{" "}
+          <a href="https://www.sebassotelo.com.ar/" target={"_blank"}>
+            Sebas Sotelo
+          </a>
+        </p>
+      </div>
     </div>
   );
 }

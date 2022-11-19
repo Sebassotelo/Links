@@ -78,6 +78,14 @@ export default function Home() {
             <FcGoogle className={style.google__logo} />
             Acceder con Google
           </button>
+          <div className={style.ejemplo}>
+            <a
+              href="https://links-59dx.vercel.app/u/_Sebassotelo"
+              target={"_blank"}
+            >
+              <p>Links de Sebas</p>
+            </a>
+          </div>
         </div>
       </div>
     </Layout>

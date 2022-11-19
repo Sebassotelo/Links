@@ -63,7 +63,7 @@ function User() {
   };
 
   return (
-    <Layout>
+    <Layout title={context.infoPublica.username}>
       {loader ? (
         <div className={style.fondo}>
           {existe ? (
