@@ -72,13 +72,14 @@ function User() {
 
               <div className={style.links__container}>
                 {context.infoPublica &&
-                  context.infoPublica.links.map((item) => (
+                  context.infoPublica.links.map((item, i) => (
                     <div className={style.item__link}>
                       {" "}
                       <a
                         href={item.url}
                         className={style.item__a}
                         target={"_blank"}
+                        rel="noreferrer"
                       >
                         {" "}
                         <p>{item.title}</p>{" "}
