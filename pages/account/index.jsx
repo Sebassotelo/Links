@@ -27,7 +27,7 @@ import LinksContext from "../../context/Context";
 import Perfil from "../../componentes/Perfil";
 import Loader from "../../componentes/Loader";
 
-function index() {
+function Index() {
   const { push } = useRouter();
   const firestore = getFirestore();
   const context = useContext(LinksContext);
@@ -150,12 +150,13 @@ function index() {
               <div className={style.container__links__publicos}>
                 {context.usuario.links &&
                   links.map((item, i) => (
-                    <div className={style.item__link}>
+                    <div className={style.item__link} key={i}>
                       {" "}
                       <a
                         href={item.url}
                         className={style.item__a}
                         target={"_blank"}
+                        rel="noreferrer"
                       >
                         {" "}
                         <p>{item.title}</p>{" "}
@@ -179,4 +180,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

@@ -73,7 +73,7 @@ function User() {
               <div className={style.links__container}>
                 {context.infoPublica &&
                   context.infoPublica.links.map((item, i) => (
-                    <div className={style.item__link}>
+                    <div className={style.item__link} key={i}>
                       {" "}
                       <a
                         href={item.url}
