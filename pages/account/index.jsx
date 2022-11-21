@@ -43,8 +43,6 @@ function Index() {
   const [url, setUrl] = useState("");
   const [links, setLinks] = useState([]);
 
-  let docRef;
-
   useEffect(() => {
     onAuthStateChanged(context.auth, inspectorSesion);
 
@@ -57,7 +55,6 @@ function Index() {
     //en caso de que haya seison iniciada
     if (usuarioFirebase) {
       setUser(usuarioFirebase);
-      docRef = doc(firestore, `users/${context.user.email}`);
     } else {
       push("/");
       //en caso de que haya seison iniciada
@@ -65,6 +62,7 @@ function Index() {
   };
 
   const buscarOCrearUsuario = async () => {
+    const docRef = doc(firestore, `users/${context.user.email}`);
     const consulta = await getDoc(docRef);
     if (consulta.exists()) {
       const infoDocu = consulta.data();
@@ -92,7 +90,7 @@ function Index() {
 
   const agregarLinks = async (e) => {
     e.preventDefault();
-
+    const docRef = doc(firestore, `users/${context.user.email}`);
     const consulta = await getDoc(docRef);
     const infoDocu = consulta.data();
 
@@ -108,6 +106,7 @@ function Index() {
   };
 
   const eliminarLink = async (e) => {
+    const docRef = doc(firestore, `users/${context.user.email}`);
     const consulta = await getDoc(docRef);
     const infoDocu = consulta.data();
 
@@ -124,6 +123,7 @@ function Index() {
     const [reorder] = newArray.splice(result.source.index, 1);
     newArray.splice(result.destination.index, 0, reorder);
     setLinks(newArray);
+    const docRef = doc(firestore, `users/${context.user.email}`);
     updateDoc(docRef, { links: newArray });
   };
 
