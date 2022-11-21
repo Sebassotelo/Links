@@ -28,7 +28,6 @@
   display: grid;
   justify-items: center;
   align-self: start;
-  cursor: grab;
 }
 
 .link__add {
@@ -97,6 +96,7 @@
   margin-left: 15px;
   display: grid;
   align-items: center;
+  cursor: grab;
 }
 
 .item__a {
