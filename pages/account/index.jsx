@@ -43,7 +43,7 @@ function Index() {
   const [url, setUrl] = useState("");
   const [links, setLinks] = useState([]);
 
-  const docRef = doc(firestore, `users/${context.user.email}`);
+  let docRef;
 
   useEffect(() => {
     onAuthStateChanged(context.auth, inspectorSesion);
@@ -57,6 +57,7 @@ function Index() {
     //en caso de que haya seison iniciada
     if (usuarioFirebase) {
       setUser(usuarioFirebase);
+      docRef = doc(firestore, `users/${context.user.email}`);
     } else {
       push("/");
       //en caso de que haya seison iniciada
