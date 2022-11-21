@@ -89,6 +89,16 @@
   background-color: rgb(238, 238, 238);
 }
 
+.move__icon {
+  color: rgba(0, 0, 0, 0.438);
+  font-size: 18px;
+  position: absolute;
+  justify-self: start;
+  margin-left: 15px;
+  display: grid;
+  align-items: center;
+}
+
 .item__a {
   height: 100%;
   width: 50%;
@@ -108,7 +118,7 @@
 }
 .agregar__container {
   height: 40px;
-  background-color: rgb(101, 136, 134);
+  background-color: rgb(74, 7, 182);
   width: 80%;
   border-radius: 15px;
   display: grid;
@@ -116,7 +126,7 @@
 }
 
 .agregar__container:hover {
-  background-color: rgb(64, 85, 84);
+  background-color: rgb(49, 4, 121);
 }
 
 .agregar__link {

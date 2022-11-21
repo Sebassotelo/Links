@@ -30,7 +30,11 @@ function Layout({ children, title }) {
       <div className={style.footer}>
         <p>
           Hecho por{" "}
-          <a href="https://www.sebassotelo.com.ar/" target={"_blank"}>
+          <a
+            href="https://www.sebassotelo.com.ar/"
+            target={"_blank"}
+            rel="noreferrer"
+          >
             Sebas Sotelo
           </a>
         </p>

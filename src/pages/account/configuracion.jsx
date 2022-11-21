@@ -26,7 +26,7 @@ import Loader from "../../componentes/Loader";
 
 function Configuracion() {
   const context = useContext(LinksContext);
-  const { setUser, setUsuario } = useContext(LinksContext);
+  const { setUser, setUsuario, setInfoPublica } = useContext(LinksContext);
   const firestore = getFirestore();
   const storage = getStorage();
 
@@ -86,6 +86,7 @@ function Configuracion() {
       setDesc(infoDocu.perfil.desc);
       setUrl(infoDocu.img);
       setUsuario(infoDocu);
+      setInfoPublica(infoDocu);
       setLoader(true);
       return infoDocu;
     }

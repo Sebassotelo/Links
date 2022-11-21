@@ -21,11 +21,15 @@ import {
   collection,
   where,
   getDocs,
+  increment,
 } from "firebase/firestore";
+import { FaGripVertical } from "react-icons/fa";
 
 import LinksContext from "../../context/Context";
 import Perfil from "../../componentes/Perfil";
 import Loader from "../../componentes/Loader";
+
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 function Index() {
   const { push } = useRouter();
@@ -38,6 +42,8 @@ function Index() {
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
   const [links, setLinks] = useState([]);
+
+  const docRef = doc(firestore, `users/${context.user.email}`);
 
   useEffect(() => {
     onAuthStateChanged(context.auth, inspectorSesion);
@@ -58,7 +64,6 @@ function Index() {
   };
 
   const buscarOCrearUsuario = async () => {
-    const docRef = doc(firestore, `users/${context.user.email}`);
     const consulta = await getDoc(docRef);
     if (consulta.exists()) {
       const infoDocu = consulta.data();
@@ -87,7 +92,6 @@ function Index() {
   const agregarLinks = async (e) => {
     e.preventDefault();
 
-    const docRef = doc(firestore, `users/${context.user.email}`);
     const consulta = await getDoc(docRef);
     const infoDocu = consulta.data();
 
@@ -103,7 +107,6 @@ function Index() {
   };
 
   const eliminarLink = async (e) => {
-    const docRef = doc(firestore, `users/${context.user.email}`);
     const consulta = await getDoc(docRef);
     const infoDocu = consulta.data();
 
@@ -111,6 +114,16 @@ function Index() {
 
     setLinks(newLinks);
     updateDoc(docRef, { links: newLinks });
+  };
+
+  const reordenarArray = (result) => {
+    if (!result.destination) return;
+    if (result.destination === result.source) return;
+    const newArray = links;
+    const [reorder] = newArray.splice(result.source.index, 1);
+    newArray.splice(result.destination.index, 0, reorder);
+    setLinks(newArray);
+    updateDoc(docRef, { links: newArray });
   };
 
   return (
@@ -154,29 +167,62 @@ function Index() {
                   </p>
                 </div>
               )}
-              <div className={style.container__links__publicos}>
-                {context.usuario.links &&
-                  links.map((item, i) => (
-                    <div className={style.item__link} key={i} draggable>
-                      {" "}
-                      <a
-                        href={item.url}
-                        className={style.item__a}
-                        target={"_blank"}
-                        rel="noreferrer"
-                      >
-                        {" "}
-                        <p>{item.title}</p>{" "}
-                      </a>
-                      <p
-                        onClick={() => eliminarLink(item.id)}
-                        className={style.item__delete}
-                      >
-                        Eliminar
-                      </p>
+              <DragDropContext onDragEnd={reordenarArray}>
+                <Droppable droppableId="lista">
+                  {(provider) => (
+                    <div
+                      {...provider.droppableProps}
+                      ref={provider.innerRef}
+                      className={style.container__links__publicos}
+                    >
+                      {context.usuario.links &&
+                        links.map((item, i) => {
+                          return (
+                            <>
+                              <Draggable
+                                key={item.id.toString()}
+                                draggableId={item.id.toString()}
+                                index={i}
+                              >
+                                {(provider) => (
+                                  <div
+                                    ref={provider.innerRef}
+                                    {...provider.draggableProps}
+                                    className={style.item__link}
+                                  >
+                                    <div
+                                      className={style.move__icon}
+                                      {...provider.dragHandleProps}
+                                    >
+                                      <FaGripVertical />
+                                    </div>
+
+                                    <a
+                                      href={item.url}
+                                      className={style.item__a}
+                                      target={"_blank"}
+                                      rel="noreferrer"
+                                    >
+                                      {" "}
+                                      <p>{item.title}</p>{" "}
+                                    </a>
+                                    <p
+                                      onClick={() => eliminarLink(item.id)}
+                                      className={style.item__delete}
+                                    >
+                                      Eliminar
+                                    </p>
+                                  </div>
+                                )}
+                              </Draggable>
+                            </>
+                          );
+                        })}
+                      {provider.placeholder}
                     </div>
-                  ))}
-              </div>
+                  )}
+                </Droppable>
+              </DragDropContext>
             </div>
           </div>
         </div>

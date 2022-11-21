@@ -11,7 +11,7 @@ import {
   signInWithRedirect,
   signOut,
 } from "firebase/auth";
-import { AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 function Navbar() {
   const context = useContext(LinksContext);
@@ -60,6 +60,7 @@ function Navbar() {
         </div>
       </div>
 
+      {/*NAVBAR MOBILEE*/}
       <div
         className={style.nav__mobile}
         style={showNav ? { top: "0px" } : { top: "-700px" }}
@@ -100,6 +101,11 @@ function Navbar() {
             </button>
           )}
         </div>
+
+        <AiOutlineClose
+          className={style.mostrar__nav__icon__close}
+          onClick={() => setShowNav(false)}
+        />
       </div>
       <div className={style.mostrar__nav}>
         <AiOutlineMenu
